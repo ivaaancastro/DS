@@ -20,7 +20,7 @@ public final class InmutableMatrix {
 
     //Segundo constructor
     InmutableMatrix(int numrows, int numcolumns) {
-        if ( || numrows == 0 || numcolumns % 2 != 0 || numcolumns == 0 ){
+        if (numrows == 0 || numcolumns == 0 ){
             throw new IllegalArgumentException("Los valores no son enteros o mayores que 0");
         }
         else{
@@ -55,8 +55,73 @@ public final class InmutableMatrix {
         return num;
     }
 
+    public int rowCount(){
+        return arr.length;
+    }
 
+    public int columnCount(){
+        return arr[0].length;
+    }
 
+    public int[][] toArray2D() {
+        int numRows = arr.length;
+        int numCols = arr[0].length;
+        int[][] arrcopy = new int[numRows][numCols];
+        for (int i = 0; i < numRows; i++){
+            for (int j = 0; j < numCols; j++){
+                arrcopy[i][j] = arr[i][j];
+            }
+        }
+        return arrcopy;
+    }
 
+    public InmutableMatrix reverse(){
+        int numRows2 = arr.length;
+        int numCols2 = arr[0].length;
+        int[][] arrReverse = new int[numRows2][numCols2];
+        for (int i = 0; i < numRows2; i++){
+            for (int j = 0; j < numCols2; j++){
+                arrReverse[i][j] = arr[i][numCols2 - 1 - j];
+            }
+        }
+        return new InmutableMatrix(arrReverse);
+    }
 
+    public InmutableMatrix transpose(){
+        int numRows3 = arr.length;
+        int numCols3 = arr[0].length;
+        int[][] arrReverse = new int[numCols3][numRows3];
+        for (int i = 0; i < numRows3; i++){
+            for (int j = 0; j < numCols3; j++){
+                arrReverse[j][i] = arr[i][j];
+            }
+        }
+        return new InmutableMatrix(arrReverse);
+    }
+
+    public InmutableMatrix reshape(int newCols){
+        int numRows4 = arr.length;
+        int numCols4 = arr[0].length;
+
+        if (newCols > numRows4 * numCols4 || newCols <= 0 || (numRows4 * numCols4) % newCols != 0){
+            throw new IllegalArgumentException("El número de columnas dado no es válido");
+        }
+
+        int[][] reshapedArr = new int[numRows4 * numCols4 / newCols][newCols];
+        int rowPosition = 0;
+        int colPosition = 0;
+
+        for (int i = 0; i < numRows4; i++){
+            for (int j = 0; j < numCols4; j++){
+                reshapedArr[rowPosition][colPosition] = arr[i][j];
+                colPosition++;
+
+                if (colPosition == newCols){
+                    colPosition = 0;
+                    rowPosition++;
+                }
+            }
+        }
+        return new InmutableMatrix(reshapedArr);
+    }
 }
