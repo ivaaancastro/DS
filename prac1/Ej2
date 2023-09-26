@@ -1,0 +1,129 @@
+public class ImmutableMatrix {
+    //Atributos
+
+    private int matriz[][];
+
+    //Constructores
+    //El constructor no devuelve nada y lleva el mismo nombre que la clase
+    public ImmutableMatrix(int matriz[][]) {
+        int contador = matriz[0].length; //Estamos en el primer array tomando la longitud del primer array
+        for (int i = 0; i < matriz.length; i++) {
+            if (matriz[i].length != contador) {
+                throw new IllegalArgumentException();
+            }
+        }
+        this.matriz = new int[matriz.length][matriz[0].length];//Haces referencia al atributo de la clase
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                this.matriz[i][j] = matriz[i][j]; // Se tienen las cosas que se pasan por parametro en los atributos
+            }
+        }
+    }
+
+    public ImmutableMatrix(int filas, int columnas) {
+        if (filas == 0 || columnas == 0) {
+            throw new IllegalArgumentException();
+        } else {
+            this.matriz = new int[filas][columnas];
+            int contador = 1;
+            for (int i = 0; i < matriz.length; i++) {
+                for (int j = 0; j < matriz[i].length; j++) {
+                    this.matriz[i][j] = contador;
+                    contador++;
+                }
+            }
+        }
+    }
+    //Metodos
+
+    public String toString() {
+        String cadena = "";
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                cadena = cadena + "\t" + matriz[i][j];
+            }
+            cadena = cadena + "\n";
+        }
+        return cadena;
+    }
+
+    public int at(int filas, int columnas) {
+        int numFilas = matriz.length;
+        int numColumnas = matriz[0].length;
+        if (numFilas < filas || numColumnas < columnas || filas < 0 || columnas < 0) {
+            throw new IllegalArgumentException();
+        }
+        return matriz[filas][columnas];
+    }
+
+    public int rowCount() {
+        return matriz.length;
+    }
+
+    public int columnCount() {
+        return matriz[0].length;
+    }
+
+    public int[][] toArray2D() {
+        int filas = matriz.length; //Asignamos el numero de filas
+        int columnas = matriz[0].length; //Asignamos el numero de columnas
+        int[][] matrizAux = new int[filas][columnas]; //Creamos una matriz con las mismas filas y columnas
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+                matrizAux[i][j] = matriz[i][j];
+            }
+        }
+        return matrizAux;
+    }
+
+    public ImmutableMatrix reverse() {
+
+        int filas = matriz.length; //Guardamos el numero de filas de la matriz dada
+        int columnas = matriz[0].length; //Guardamos el numero de columnas de la matriz dada
+
+        int[][] matrizAux = new int[filas][columnas]; // Crea la matriz auxiliar con las mismas dimensiones que la matriz dada
+        for (int i = 0; i < filas; i++) { //Este bucle se encarga de recorrer las filas de la matriz
+            for (int j = 0; j < columnas; j++) { //Este bucle se encarga de recorrer las columnas de la matriz
+                matrizAux[i][j] = matriz[i][columnas - 1 - j]; //Esto se encarga de copiar los elementos en la nueva matriz invirtiendo el orden
+            }
+
+        }
+        return new ImmutableMatrix(matrizAux); //Devuelve la matriz auxiliar
+    }
+
+    public ImmutableMatrix transpose() {
+        int filas = matriz.length; //Guardamos el numero de filas de la matriz dada
+        int columnas = matriz[0].length; //Guardamos el numero de columnas de la matriz dada
+        int[][] matrizAux = new int[columnas][filas]; // Creamos una matriz auxiliar que tiene las dimensiones de la traspuesta de la original
+        for (int i = 0; i < filas; i++) { //Recorremos las filas
+            for (int j = 0; j < columnas; j++) { //Recorremos las columnas
+                matrizAux[j][i] = matriz[i][j]; //En la matriz auxiliar se guarda la matriz traspuesta
+
+            }
+        }
+        return new ImmutableMatrix(matrizAux); //Retorna la matriz traspuesta
+    }
+
+    public ImmutableMatrix reshape(int newColumns) {
+        int filas = matriz.length; //Almacena el numero de filas de la matriz
+        int columnas = matriz[0].length; //Almacena el numero de columnas de la matriz
+        int totalCeldas = filas * columnas; //Calcula el numero de elementos que hay en la matriz
+        int nuevasFilas = totalCeldas / newColumns; //Calcula el nuevo numero de filas
+        int[][] matrizAux = new int[nuevasFilas][newColumns]; //Crea una matriz con las nuevas dimensiones
+        if (totalCeldas % newColumns != 0 || newColumns > totalCeldas || newColumns <= 0) { //Si no el numero de columnas es igual o menor que cero, si se da un numero de columnas mayor al de parametros que hay en la matriz o si el numero de columnas nos hace tener una matriz irregular
+            throw new IllegalArgumentException(); //Si se cumple alguna de las condiciones se lanzará la excepción
+        } else {
+
+            for (int i = 0; i < totalCeldas; i++) { //Crea un bucle que recorre todas las celdas
+                int filaOriginal = i / columnas; //
+                int columnaOriginal = i % columnas;
+                int filaNueva = i / newColumns;
+                int columnaNueva = i % newColumns;
+
+                matrizAux[filaNueva][columnaNueva] = matriz[filaOriginal][columnaOriginal];
+            }
+        }
+        return new ImmutableMatrix(matrizAux);
+    }
+
+}
