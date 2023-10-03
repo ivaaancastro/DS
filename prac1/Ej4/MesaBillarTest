@@ -1,0 +1,103 @@
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class MesaBillarTest {
+
+    private final PrintStream standardOut = System.out; //Permite poder buscar en la consola lo impreso
+    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream(); //Esto sirve para lo mismo que lo de arriba
+    MesaBillar mesaBillar;
+
+    @BeforeEach
+    void setUp() {  //Antes de hacer todos los test se ejecuta
+        mesaBillar = new MesaBillar(); //Creas la mesa
+        System.setOut(new PrintStream(outputStreamCaptor));
+    }
+    /*
+    @AfterEach
+    void tearDown() {
+    }*/
+
+    @Test
+    void iniciarPartida() {
+        assertEquals(mesaBillar.esPartidaIniciada(), false);
+        assertEquals(mesaBillar.bolasCajetin().size(), 16);
+        assertEquals(mesaBillar.bolasMesa().size(), 0);
+        mesaBillar.iniciarPartida();
+        assertEquals(mesaBillar.esPartidaIniciada(), true);
+        assertEquals(mesaBillar.bolasMesa().size(), 16);
+        assertEquals(mesaBillar.bolasCajetin().size(), 0);
+    }
+
+    @Test
+    void meterBola() {
+        mesaBillar.meterBola(BolaBillar.BOLA1);
+        assertEquals(mesaBillar.bolasMesa().contains(BolaBillar.BOLA1), false);
+        assertEquals(mesaBillar.bolasCajetin().contains(BolaBillar.BOLA1), true);
+        mesaBillar.meterBola(BolaBillar.BLANCA);
+        assertEquals(mesaBillar.bolasMesa().contains(BolaBillar.BLANCA), true);
+        mesaBillar.meterBola(BolaBillar.BOLA8);
+        assertEquals(mesaBillar.bolasMesa().size(), 0);
+        assertEquals(mesaBillar.bolasCajetin().size(), 16);
+        assertEquals(mesaBillar.esPartidaIniciada(), false);
+        mesaBillar.meterBola(BolaBillar.BLANCA);
+        assertEquals(mesaBillar.bolasMesa().contains(BolaBillar.BLANCA), false);
+        assertEquals(mesaBillar.bolasCajetin().contains(BolaBillar.BLANCA), true);
+    }
+
+    @Test
+    void bolasMesa() {
+        mesaBillar.iniciarPartida();
+        assertEquals(mesaBillar.bolasMesa().contains(BolaBillar.BOLA3), true);
+        mesaBillar.meterBola(BolaBillar.BOLA3);
+        assertEquals(mesaBillar.bolasMesa().contains(BolaBillar.BOLA3), false);
+        assertEquals(mesaBillar.bolasMesa().contains(BolaBillar.BOLA9), true);
+        mesaBillar.meterBola(BolaBillar.BOLA9);
+        assertEquals(mesaBillar.bolasMesa().contains(BolaBillar.BOLA9), false);
+        assertEquals(mesaBillar.bolasMesa().contains(BolaBillar.BOLA15), true);
+        mesaBillar.meterBola(BolaBillar.BOLA15);
+        assertEquals(mesaBillar.bolasMesa().contains(BolaBillar.BOLA15), false);
+    }
+
+    @Test
+    void bolasCajetin() {
+        mesaBillar.iniciarPartida();
+        assertEquals(mesaBillar.bolasCajetin().contains(BolaBillar.BOLA6), false);
+        mesaBillar.meterBola((BolaBillar.BOLA6));
+        assertEquals(mesaBillar.bolasCajetin().contains(BolaBillar.BOLA6), true);
+        assertEquals(mesaBillar.bolasCajetin().contains(BolaBillar.BOLA10), false);
+        mesaBillar.meterBola((BolaBillar.BOLA10));
+        assertEquals(mesaBillar.bolasCajetin().contains(BolaBillar.BOLA10), true);
+        assertEquals(mesaBillar.bolasCajetin().contains(BolaBillar.BOLA2), false);
+        mesaBillar.meterBola((BolaBillar.BOLA2));
+        assertEquals(mesaBillar.bolasCajetin().contains(BolaBillar.BOLA2), true);
+    }
+
+    @Test
+    void esPartidaIniciada() {
+        mesaBillar.iniciarPartida();
+        assertEquals(mesaBillar.esPartidaIniciada(), true);
+        mesaBillar.meterBola(BolaBillar.BOLA8);
+        assertEquals(mesaBillar.esPartidaIniciada(), false);
+    }
+
+    @Test
+    void obtenerGanador() {
+        mesaBillar.iniciarPartida();
+        mesaBillar.obtenerGanador();
+        assertEquals("Van empatados", outputStreamCaptor.toString().trim());
+        mesaBillar.meterBola(BolaBillar.BOLA3);
+        assertEquals("Van ganando las lisas", outputStreamCaptor.toString().trim());
+        mesaBillar.meterBola(BolaBillar.BOLA11);
+        mesaBillar.meterBola(BolaBillar.BOLA13);
+        assertEquals("Van ganando las rayadas", outputStreamCaptor.toString().trim());
+        mesaBillar.meterBola(BolaBillar.BOLA8);
+        assertEquals("Han ganado las rayadas", outputStreamCaptor.toString().trim());
+
+    }
+}
