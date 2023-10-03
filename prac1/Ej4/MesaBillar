@@ -1,0 +1,90 @@
+import java.util.ArrayList;
+//Cuando están en los atributos no hay que pasar los datos
+public class MesaBillar {
+    //Atributo
+
+    private ArrayList <BolaBillar> cajetin;
+    private ArrayList <BolaBillar> bolasEnJuego;
+
+
+
+
+    private boolean enJuego;
+
+    //Constructores
+
+    public MesaBillar(){
+        enJuego = false;
+        cajetin = new ArrayList<BolaBillar>();
+        bolasEnJuego = new ArrayList<BolaBillar>();
+        BolaBillar[] valores = BolaBillar.values();
+        for(BolaBillar bola : valores){
+            cajetin.add(bola);
+        }
+    }
+
+    public void iniciarPartida(){
+        enJuego = true;
+        bolasEnJuego.addAll(cajetin); //Metodo directo que metes todos los elementos de cajetín en bolas mesa.
+        cajetin.clear(); /*Elimina todo lo que hay en cajetín */
+    }
+
+    public void meterBola(BolaBillar bola){
+
+        if(bola.getNumero() == 8){
+            enJuego = false;
+            cajetin.addAll(bolasEnJuego);
+            bolasEnJuego.clear();
+        }
+        else if(bola.getNumero() == 0){
+            if(enJuego == false){
+                cajetin.add(bola);
+                bolasEnJuego.remove(bola); //La saca de la mesa
+            }
+        }
+        else if(bola.getNumero() > 0 && bola.getNumero() < 16){
+            cajetin.add(bola);
+            bolasEnJuego.remove(bola);
+        }
+    }
+
+    public ArrayList<BolaBillar> bolasMesa(){
+        return bolasEnJuego;
+    }
+
+    public ArrayList<BolaBillar> bolasCajetin(){
+        return cajetin;
+    }
+
+    public boolean esPartidaIniciada(){
+        return enJuego;
+    }
+
+    public void obtenerGanador(){
+        int numLisas = 0;
+        int numRayadas = 0;
+
+        for(int i = 0; i < bolasEnJuego.size(); i++){ //.equals función para comparar strings
+            if (bolasEnJuego.get(i).getTipo().equals("LISA") && bolasEnJuego.get(i).getNumero() != 0 && bolasEnJuego.get(i).getNumero() !=8){
+                numLisas ++;
+            }else if(bolasEnJuego.get(i).getTipo().equals("RAYADA")){
+                numRayadas++;
+            }
+        }
+        if (enJuego){
+            if(numLisas < numRayadas){
+                System.out.println("Van ganando las lisas");
+            }else if(numRayadas < numLisas){
+                System.out.println("Van ganando las rayadas");
+            }else if(numRayadas == numLisas){
+                System.out.println("Van empatados");
+            }
+        }else{
+            if(numLisas < numRayadas){
+                System.out.println("Han ganado las lisas");
+            }else if(numRayadas < numLisas){
+                System.out.println("Han ganado las rayadas");
+            }
+        }
+    }
+}
