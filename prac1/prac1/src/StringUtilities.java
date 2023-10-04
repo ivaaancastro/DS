@@ -1,4 +1,7 @@
+package ej1;
+
 import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class StringUtilities {
 
@@ -17,7 +20,7 @@ public class StringUtilities {
     //Métodos
     //Ctrl+alt+l ordena código
     public static boolean isValidString(String string, String admisibles, int tamanho) {
-        if (string == null) {
+        if (string == null || string.isEmpty()) {
             return false;
         }
         if (string.length() < tamanho) { //Nos da el tamaño del string
@@ -35,7 +38,7 @@ public class StringUtilities {
         String minuscula = "";
         String mayuscula = "";
         for (int i = 0; i < string.length(); i++) {
-            if (Character.isLowerCase(string.charAt(i)) == true) { //Comprueba si es minuscula
+            if (Character.isLowerCase(string.charAt(i))) { //Comprueba si es minuscula
                 minuscula = minuscula + string.charAt(i);
             } else {
                 mayuscula = mayuscula + string.charAt(i);
@@ -45,29 +48,31 @@ public class StringUtilities {
     }
 
     public static boolean checkTextStats(String string, int minimo, int maximo) {
-        float media; //
+        double media; //
         int sumaAcumulada = 0; //
-        int mayor = 0;
-        String[] separado = string.split(" "); //
+        int palabra_mayor = 0;
+
         if (string == null || string.isEmpty() || minimo <= 0 || maximo <= 0 || minimo > maximo) {
             throw new IllegalArgumentException();
-        } else { //
-            for (int i = 0; i < separado.length; i++) { //
-                sumaAcumulada += separado[i].length();
-                if (mayor < separado[i].length()) {
-                    mayor = separado[i].length();//
-                }
-            }
-            media = (float) sumaAcumulada / separado.length; //
         }
-        if ((minimo < media) && (media < maximo)) { //
-            return true; //
-        } else {
-            if (media >= 2 * mayor) {
-                return true;
+
+        String[] separado = string.split(" "); //
+        System.out.println(Arrays.toString(separado));
+        //
+        for (String s : separado) { //
+            System.out.println(s.length());
+            sumaAcumulada += s.length();
+            if (s.length() > palabra_mayor) {
+                palabra_mayor = s.length();//
             }
         }
-        return false;
+        System.out.println("Suma acumulada: "+sumaAcumulada);
+        System.out.println("Separado length: " + separado.length);
+        media = (double) sumaAcumulada / separado.length; //
+
+        System.out.println("Media: "+media);
+        System.out.println("Palabra mayor: "+palabra_mayor);
+        return (media >= minimo && media <= maximo) && (palabra_mayor < 2 * media);
     }
 
 } //string.split divide string por donde se indique
