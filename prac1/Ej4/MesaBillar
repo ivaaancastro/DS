@@ -1,3 +1,5 @@
+package ej4;
+
 import java.util.ArrayList;
 //Cuando están en los atributos no hay que pasar los datos
 public class MesaBillar {
@@ -5,10 +7,6 @@ public class MesaBillar {
 
     private ArrayList <BolaBillar> cajetin;
     private ArrayList <BolaBillar> bolasEnJuego;
-
-
-
-
     private boolean enJuego;
 
     //Constructores
@@ -33,8 +31,6 @@ public class MesaBillar {
 
         if(bola.getNumero() == 8){
             enJuego = false;
-            cajetin.addAll(bolasEnJuego);
-            bolasEnJuego.clear();
         }
         else if(bola.getNumero() == 0){
             if(enJuego == false){
@@ -60,10 +56,10 @@ public class MesaBillar {
         return enJuego;
     }
 
-    public void obtenerGanador(){
+    public String obtenerGanador(){
         int numLisas = 0;
         int numRayadas = 0;
-
+        String resultado = "";
         for(int i = 0; i < bolasEnJuego.size(); i++){ //.equals función para comparar strings
             if (bolasEnJuego.get(i).getTipo().equals("LISA") && bolasEnJuego.get(i).getNumero() != 0 && bolasEnJuego.get(i).getNumero() !=8){
                 numLisas ++;
@@ -73,18 +69,19 @@ public class MesaBillar {
         }
         if (enJuego){
             if(numLisas < numRayadas){
-                System.out.println("Van ganando las lisas");
+                resultado = "Van ganando las lisas";
             }else if(numRayadas < numLisas){
-                System.out.println("Van ganando las rayadas");
+                resultado = "Van ganando las rayadas";
             }else if(numRayadas == numLisas){
-                System.out.println("Van empatados");
+                resultado = "Van empatados";
             }
         }else{
             if(numLisas < numRayadas){
-                System.out.println("Han ganado las lisas");
+                resultado = "Han ganado las lisas";
             }else if(numRayadas < numLisas){
-                System.out.println("Han ganado las rayadas");
+                resultado = "Han ganado las rayadas";
             }
         }
+        return resultado;
     }
 }
