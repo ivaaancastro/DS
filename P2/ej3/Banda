@@ -1,0 +1,31 @@
+package e3;
+
+import java.util.ArrayList;
+
+public class Banda extends Artist{
+
+    private ArrayList<String> integrantes;
+
+    public Banda (String nombre, int edad, String id, int anho_inicio, ArrayList<String> integrantes){
+        super(nombre, edad, id, anho_inicio);
+        this.integrantes = integrantes;
+    }
+
+    public Banda (String nombre, int edad, String id, int anho_inicio, ArrayList<String> generos, ArrayList<Double> puntuaciones, ArrayList<String> integrantes){
+        super(nombre, edad, id, anho_inicio, generos, puntuaciones);
+        this.integrantes = integrantes;
+    }
+
+    public ArrayList<String> getIntegrantes() {
+        return integrantes;
+    }
+
+    public void setIntegrantes(ArrayList<String> integrantes) {
+        this.integrantes = integrantes;
+    }
+
+    @Override
+    public boolean isBand() {
+        return true;
+    }
+}
