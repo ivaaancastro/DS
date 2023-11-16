@@ -1,0 +1,66 @@
+package e3;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class ArtistList {
+    private ArrayList<Artist> artistas;
+
+    public ArtistList (){
+        artistas = new ArrayList<Artist>();
+    }
+
+    public ArrayList<Artist> getArtistas() {
+        return artistas;
+    }
+
+    public void ordenar(){
+        Collections.sort(artistas);
+    }
+
+    public void ordenar(Comparator<Artist> comparador){
+        Collections.sort(artistas,comparador);
+    }
+
+    public Artist buscar (String id){
+        for(int i = 0; i < artistas.size();i++){
+            if(artistas.get(i).getId().equals(id)){
+                return artistas.get(i);
+            }
+        }
+        return null;
+    }
+
+    public boolean insertarArtista(Artist artista){
+        if(buscar(artista.getId()) == null){
+            artistas.add(artista);
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean eliminarArtista(String id){
+        Artist artista = buscar(id);
+        if(artista == null){
+            return false;
+        }else{
+            artistas.remove(artista);
+            return true;
+        }
+    }
+
+    public String infoArtista(String id){
+        Artist artista = buscar(id);
+        if(artista == null){
+            return "";
+        }else{
+            return artista.toString();
+        }
+    }
+}
+
+
+
