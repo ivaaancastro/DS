@@ -1,0 +1,111 @@
+package e3;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ArtistTest {
+
+    @BeforeEach
+    void setUp() {
+    }
+
+    @AfterEach
+    void tearDown() {
+    }
+
+    @Test
+    void getNombre() {
+    }
+
+    @Test
+    void getGenero() {
+    }
+
+    @Test
+    void getTipo() {
+    }
+
+    @Test
+    void getEdad() {
+    }
+
+    @Test
+    void getId() {
+    }
+
+    @Test
+    void getFecha_nacimiento() {      
+    }
+
+    @Test
+    void getGeneros() {
+    }
+
+    @Test
+    void getPuntuaciones() {
+    }
+
+    @Test
+    void setNombre() {
+    }
+
+    @Test
+    void setGenero() {
+    }
+
+    @Test
+    void setTipo() {
+    }
+
+    @Test
+    void setEdad() {
+    }
+
+    @Test
+    void setId() {
+    }
+
+    @Test
+    void setFecha_nacimiento() {
+    }
+
+    @Test
+    void setPuntuaciones() {
+    }
+
+    @Test
+    void setGeneros() {
+    }
+
+    @Test
+    void mediaPuntuaciones() {
+    }
+
+    @Test
+    void compareTo() {
+    }
+
+    @Test
+    void comparadorPorMedia() {
+    }
+
+    @Test
+    void comparadorPorEclecticismo() {
+    }
+
+    @Test
+    void comparadorPorNombre() {
+    }
+
+    @Test
+    void comparadorPorEdad() {
+    }
+
+    @Test
+    void testToString() {
+    }
+    
+}
