@@ -1,0 +1,30 @@
+package e3;
+
+import java.util.ArrayList;
+
+public class ArtistaSolitario extends Artist{
+    private String genero;
+
+    public ArtistaSolitario(String nombre, String id, int edad, int anho_inicio, String genero){
+        super (nombre, edad, id, anho_inicio);
+        this.genero = genero;
+    }
+    public ArtistaSolitario(String nombre, String id, int edad, int anho_inicio, ArrayList<String> generos, ArrayList<Double> puntuaciones,String genero){
+        super (nombre, edad, id, anho_inicio, generos, puntuaciones);
+        this.genero = genero;
+    }
+
+    void setGenero(String genero){
+        this.genero = genero;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    @Override
+    public boolean isBand() {
+        return false;
+    }
+
+}
