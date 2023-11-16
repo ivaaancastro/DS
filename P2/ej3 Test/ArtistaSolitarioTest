@@ -1,0 +1,221 @@
+package e3;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ArtistaSolitarioTest {
+    ArtistaSolitario artista1,artista2,artista3,artista4,artista5,artista6;
+
+    @BeforeEach
+    void setUp() {
+        ArrayList<String> generos1 = new ArrayList<String>(Arrays.asList("pop", "country", "country pop", "contemporary country", "pop rock"));
+        ArrayList<Double> puntuaciones1 = new ArrayList<Double>(Arrays.asList(4.25,4.25 ,4.0, 4.5, 4.25, 4.5, 4.25, 4.5, 4.75, 4.25, 4.0, 3.5));
+        artista1 = new ArtistaSolitario("Taylor Swift","131313T", 33,2004, generos1, puntuaciones1,"Female");
+
+        ArrayList<String> generos2 = new ArrayList<String>(Arrays.asList("progressivo house", "EDM", "dance-pop", "electro house", "funky house"));
+        ArrayList<Double> puntuaciones2 = new ArrayList<Double>(Arrays.asList(3.0,4.0 ,5.0));
+        artista2 = new ArtistaSolitario("Avicii","000003A",28,2006, generos2, puntuaciones2,"Male");
+
+        ArrayList<String> generos3 = new ArrayList<String>(Arrays.asList("house", "dance-pop", "dance", "electro house", "electronic"));
+        ArrayList<Double> puntuaciones3 = new ArrayList<Double>(Arrays.asList(5.0 ,5.0 ,4.0 ,5.0, 4.75, 3.25, 4.0 ));
+        artista3 = new ArtistaSolitario("David Guetta","000313B",56,2002, generos3, puntuaciones3,"Male");
+
+        ArrayList<String> generos4 = new ArrayList<String>(Arrays.asList("pop", "electropop", "pop rock", "bubblegum", "pop", "dance-pop"));
+        ArrayList<Double> puntuaciones4 = new ArrayList<Double>(Arrays.asList(1.0 ,3.0 ,4.0 ,4.0, 4.0, 3.25));
+        artista4 = new ArtistaSolitario("Katy Perry", "495239G" ,39, 2001, generos4,puntuaciones4,"Female");
+
+        ArrayList<String> generos5 = new ArrayList<String>(Arrays.asList("pop", "dance-pop", "electropop", "electronic", "pop rock"));
+        ArrayList<Double> puntuaciones5 = new ArrayList<Double>(Arrays.asList(4.0 ,4.0 ,4.0 ,3.75, 4.0, 3.25));
+        artista5 = new ArtistaSolitario("Lady Gaga", "503494K", 37, 2007,generos5,puntuaciones5, "Female");
+
+        ArrayList<String> generos6 = new ArrayList<String>(Arrays.asList("r&b", "contemporary r&b", "alternative r&b", "dance-pop", "synth-pop"));
+        ArrayList<Double> puntuaciones6 = new ArrayList<Double>(Arrays.asList(4.25 ,4.25 ,4.0 ,5.0, 4.0));
+        artista6 = new ArtistaSolitario("The Weeknd", "938128L", 33, 2009 , generos6, puntuaciones6, "Male");
+
+
+    }
+
+    @AfterEach
+    void tearDown() {
+    }
+
+    @Test
+    void getNombre() {
+        assertEquals("Taylor Swift",artista1.getNombre());
+        assertEquals("Avicii",artista2.getNombre());
+        assertEquals("David Guetta",artista3.getNombre());
+        assertEquals("Katy Perry",artista4.getNombre());
+        assertEquals("Lady Gaga",artista5.getNombre());
+        assertEquals("The Weeknd",artista6.getNombre());
+
+    }
+
+    @Test
+    void getGenero() {
+        assertEquals("Female",artista1.getGenero());
+        assertEquals("Male",artista2.getGenero());
+        assertEquals("Male",artista3.getGenero());
+        assertEquals("Female",artista4.getGenero());
+        assertEquals("Female",artista5.getGenero());
+        assertEquals("Male",artista6.getGenero());
+    }
+
+    @Test
+    void getEdad() {
+        assertEquals(33,artista1.getEdad());
+        assertEquals(28,artista2.getEdad());
+        assertEquals(56,artista3.getEdad());
+        assertEquals(39,artista4.getEdad());
+        assertEquals(37,artista5.getEdad());
+        assertEquals(33,artista6.getEdad());
+
+    }
+
+    @Test
+    void getId() {
+        assertEquals("131313T",artista1.getId());
+        assertEquals("000003A",artista2.getId());
+        assertEquals("000313B",artista3.getId());
+        assertEquals("495239G",artista4.getId());
+        assertEquals("503494K",artista5.getId());
+        assertEquals("938128L",artista6.getId());
+
+    }
+
+    @Test
+    void getAnho_inicio() {
+        assertEquals(2004, artista1.getAnho_inicio());
+        assertEquals(2006, artista2.getAnho_inicio());
+        assertEquals(2002, artista3.getAnho_inicio());
+        assertEquals(2001, artista4.getAnho_inicio());
+        assertEquals(2007, artista5.getAnho_inicio());
+        assertEquals(2009, artista6.getAnho_inicio());
+    }
+    @Test
+    void getGeneros(){
+        ArrayList<String> generos_aux1 = new ArrayList<String>(Arrays.asList("pop", "country", "country pop", "contemporary country", "pop rock"));
+        assertEquals(generos_aux1, artista1.getGeneros());
+        ArrayList<String> generos_aux2 = new ArrayList<String>(Arrays.asList("progressivo house", "EDM", "dance-pop", "electro house", "funky house"));
+        assertEquals(generos_aux2, artista2.getGeneros());
+        ArrayList<String> generos_aux3 = new ArrayList<String>(Arrays.asList("house", "dance-pop", "dance", "electro house", "electronic"));
+        assertEquals(generos_aux3, artista3.getGeneros());
+        ArrayList<String> generos_aux4 = new ArrayList<String>(Arrays.asList("pop", "electropop", "pop rock", "bubblegum", "pop", "dance-pop"));
+        assertEquals(generos_aux4, artista4.getGeneros());
+        ArrayList<String> generos_aux5 = new ArrayList<String>(Arrays.asList("pop", "dance-pop", "electropop", "electronic", "pop rock"));
+        assertEquals(generos_aux5, artista5.getGeneros());
+        ArrayList<String> generos_aux6 = new ArrayList<String>(Arrays.asList("r&b", "contemporary r&b", "alternative r&b", "dance-pop", "synth-pop"));
+        assertEquals(generos_aux6, artista6.getGeneros());
+    }
+
+    @Test
+    void getPuntuaciones() {
+        ArrayList<Double> puntuaciones_aux1 = new ArrayList<Double>(Arrays.asList(4.25,4.25 ,4.0, 4.5, 4.25, 4.5, 4.25, 4.5, 4.75, 4.25, 4.0, 3.5));
+        assertEquals(puntuaciones_aux1, artista1.getPuntuaciones());
+        ArrayList<Double> puntuaciones_aux2 = new ArrayList<Double>(Arrays.asList(3.0,4.0 ,5.0));
+        assertEquals(puntuaciones_aux2, artista2.getPuntuaciones());
+        ArrayList<Double> puntuaciones_aux3 = new ArrayList<Double>(Arrays.asList(5.0 ,5.0 ,4.0 ,5.0, 4.75, 3.25, 4.0));
+        assertEquals(puntuaciones_aux3, artista3.getPuntuaciones());
+        ArrayList<Double> puntuaciones_aux4 = new ArrayList<Double>(Arrays.asList(1.0 ,3.0 ,4.0 ,4.0, 4.0, 3.25));
+        assertEquals(puntuaciones_aux4, artista4.getPuntuaciones());
+        ArrayList<Double> puntuaciones_aux5 = new ArrayList<Double>(Arrays.asList(4.0 ,4.0 ,4.0 ,3.75, 4.0, 3.25));
+        assertEquals(puntuaciones_aux5, artista5.getPuntuaciones());
+        ArrayList<Double> puntuaciones_aux6 = new ArrayList<Double>(Arrays.asList(4.25 ,4.25 ,4.0 ,5.0, 4.0));
+        assertEquals(puntuaciones_aux6, artista6.getPuntuaciones());
+
+    }
+    @Test
+    void setNombre() {
+        assertEquals("Taylor Swift", artista1.getNombre());
+        artista1.setNombre("Rihanna");
+        assertEquals("Rihanna",artista1.getNombre());
+        assertEquals("Avicii", artista2.getNombre());
+        artista2.setNombre("Luca Testa");
+        assertEquals("Luca Testa",artista2.getNombre());
+    }
+
+    @Test
+    void setGenero() {
+        artista1.setGenero("Male");
+        assertEquals("Male",artista1.getGenero());
+        artista2.setGenero("Female");
+        assertEquals("Female",artista2.getGenero());
+    }
+
+    @Test
+    void setEdad(){
+        artista1.setEdad(34);
+        assertEquals(34,artista1.getEdad());
+        artista2.setEdad(33);
+        assertEquals(33,artista2.getEdad());
+    }
+
+    @Test
+    void setAnho_Inicio(){
+        artista1.setAnho_inicio(2012);
+        assertEquals(2012,artista1.getAnho_inicio());
+        artista2.setAnho_inicio(2009);
+        assertEquals(2009,artista2.getAnho_inicio());
+    }
+
+    @Test
+    void setId(){
+        artista1.setId("222222S");
+        assertEquals("222222S",artista1.getId());
+        artista2.setId("848923M");
+        assertEquals("848923M",artista2.getId());
+    }
+
+
+
+    @Test
+    void setGeneros(){
+        ArrayList<String> nuevos_generos = new ArrayList<String>(Arrays.asList("pop", "dance-pop", "electropop"));
+        artista1.setGeneros(nuevos_generos);
+        assertEquals(nuevos_generos, artista1.getGeneros());
+    }
+
+    @Test
+    void setPuntuaciones(){
+        ArrayList<Double> nuevas_puntuaciones = new ArrayList<Double>(Arrays.asList(5.0,4.75,4.5,4.25));
+        artista1.setPuntuaciones(nuevas_puntuaciones);
+        assertEquals(nuevas_puntuaciones,artista1.getPuntuaciones());
+    }
+
+    @Test
+    void isBand() {
+        assertEquals(false,artista1.isBand());
+        assertEquals(false,artista2.isBand());
+        assertEquals(false,artista3.isBand());
+        assertEquals(false,artista4.isBand());
+        assertEquals(false,artista5.isBand());
+        assertEquals(false,artista6.isBand());
+
+
+    }
+
+    @Test
+    void mediaPuntuaciones() {
+        assertEquals(4.25,artista1.mediaPuntuaciones(),0.0001);
+        assertEquals(4.0,artista2.mediaPuntuaciones(),0.0001);
+        assertEquals(4.4285,artista3.mediaPuntuaciones(),0.0001);
+        assertEquals(3.2083,artista4.mediaPuntuaciones(),0.0001);
+        assertEquals(3.8333,artista5.mediaPuntuaciones(),0.0001);
+        assertEquals(4.3,artista6.mediaPuntuaciones(),0.0001);
+    }
+
+    @Test
+    void compareTo() {
+        assertEquals(0,artista1.compareTo(artista1));
+        assertEquals(true,artista1.compareTo(artista2) > 0);
+        assertEquals(true,artista2.compareTo(artista1) < 0);
+    }
+
+
+}
