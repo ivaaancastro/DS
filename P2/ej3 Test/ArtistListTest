@@ -1,0 +1,112 @@
+package e3;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class ArtistListTest {
+    ArtistaSolitario artista1,artista2,artista3,artista4,artista5,artista6,artista7;
+    ArtistList lista;
+    @BeforeEach
+    void setUp() {
+
+        ArrayList<String> generos1 = new ArrayList<String>(Arrays.asList("pop", "country", "country pop", "contemporary country", "pop rock"));
+        ArrayList<Double> puntuaciones1 = new ArrayList<Double>(Arrays.asList(4.25,4.25 ,4.0, 4.5, 4.25, 4.5, 4.25, 4.5, 4.75, 4.25, 4.0, 3.5));
+        artista1 = new ArtistaSolitario("Taylor Swift","131313T", 33,2004, generos1, puntuaciones1,"Female");
+
+        ArrayList<String> generos2 = new ArrayList<String>(Arrays.asList("progressivo house", "EDM", "dance-pop", "electro house", "funky house"));
+        ArrayList<Double> puntuaciones2 = new ArrayList<Double>(Arrays.asList(3.0,4.0 ,5.0));
+        artista2 = new ArtistaSolitario("Avicii","000003A",28,2006, generos2, puntuaciones2,"Male");
+
+        ArrayList<String> generos3 = new ArrayList<String>(Arrays.asList("house", "dance-pop", "dance", "electro house", "electronic"));
+        ArrayList<Double> puntuaciones3 = new ArrayList<Double>(Arrays.asList(5.0 ,5.0 ,4.0 ,5.0, 4.75, 3.25, 4.0 ));
+        artista3 = new ArtistaSolitario("David Guetta","000313B",56,2002, generos3, puntuaciones3,"Male");
+
+        ArrayList<String> generos4 = new ArrayList<String>(Arrays.asList("pop", "electropop", "pop rock", "bubblegum", "pop", "dance-pop"));
+        ArrayList<Double> puntuaciones4 = new ArrayList<Double>(Arrays.asList(1.0 ,3.0 ,4.0 ,4.0, 4.0, 3.25));
+        artista4 = new ArtistaSolitario("Katy Perry", "495239G" ,39, 2001, generos4,puntuaciones4,"Female");
+
+        ArrayList<String> generos5 = new ArrayList<String>(Arrays.asList("pop", "dance-pop", "electropop", "electronic", "pop rock"));
+        ArrayList<Double> puntuaciones5 = new ArrayList<Double>(Arrays.asList(4.0 ,4.0 ,4.0 ,3.75, 4.0, 3.25));
+        artista5 = new ArtistaSolitario("Lady Gaga", "503494K", 37, 2007,generos5,puntuaciones5, "Female");
+
+        ArrayList<String> generos6 = new ArrayList<String>(Arrays.asList("r&b", "contemporary r&b", "alternative r&b", "dance-pop", "synth-pop"));
+        ArrayList<Double> puntuaciones6 = new ArrayList<Double>(Arrays.asList(4.25 ,4.25 ,4.0 ,5.0, 4.0));
+        artista6 = new ArtistaSolitario("The Weeknd", "938128L", 33, 2009 , generos6, puntuaciones6, "Male");
+
+        ArrayList<String> generos7 = new ArrayList<String>(Arrays.asList("r&b", "contemporary r&b", "alternative r&b", "dance-pop", "synth-pop"));
+        ArrayList<Double> puntuaciones7 = new ArrayList<Double>(Arrays.asList(4.25 ,4.25 ,4.0 ,5.0, 4.0));
+        artista7 = new ArtistaSolitario("Jason Derulo", "392012L", 33, 2009 , generos6, puntuaciones6, "Male");
+
+        lista = new ArtistList();
+        lista.insertarArtista(artista1);
+        lista.insertarArtista(artista2);
+        lista.insertarArtista(artista3);
+        lista.insertarArtista(artista4);
+        lista.insertarArtista(artista5);
+        lista.insertarArtista(artista6);
+    }
+
+    @AfterEach
+    void tearDown() {
+    }
+
+    @Test
+    void getArtistas() {
+        assertEquals(6, lista.getArtistas().size());
+    }
+
+    @Test
+    void test_ordenar() {
+        lista.ordenar();
+        assertEquals("000003A",lista.getArtistas().get(0).getId());
+        assertEquals("938128L",lista.getArtistas().get(5).getId());
+
+        lista.ordenar(Artist.comparadorPorMedia());
+        assertEquals("000313B",lista.getArtistas().get(0).getId());
+        assertEquals("495239G",lista.getArtistas().get(5).getId());
+
+        lista.ordenar(Artist.comparadorPorEclecticismo());
+        assertEquals("495239G",lista.getArtistas().get(0).getId());
+        assertEquals("938128L",lista.getArtistas().get(5).getId());
+
+        lista.ordenar(Artist.comparadorPorNombre());
+        assertEquals("000003A",lista.getArtistas().get(0).getId());
+        assertEquals("495239G",lista.getArtistas().get(2).getId());
+
+        lista.ordenar(Artist.comparadorPorEdad());
+        assertEquals("000003A",lista.getArtistas().get(0).getId());
+        assertEquals("000313B",lista.getArtistas().get(5).getId());
+
+
+    }
+
+    @Test
+    void buscar() {
+       Artist aux = lista.buscar("495239G");
+       assertEquals("495239G", aux.getId());
+    }
+
+    @Test
+    void insertarArtista() {
+        lista.insertarArtista(artista7);
+        assertEquals("392012L",lista.getArtistas().get(6).getId());
+    }
+
+    @Test
+    void eliminarArtista() {
+        lista.eliminarArtista("938128L");
+        assertEquals(null,lista.buscar("938128L"));
+    }
+
+    @Test
+    void infoArtista() {
+        lista.infoArtista("131313T");
+        assertEquals("id 131313T\nnombre Taylor Swift\nedad 33\nanho_inicio 2004",lista.infoArtista("131313T"));
+    }
+}
